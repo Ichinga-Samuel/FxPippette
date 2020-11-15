@@ -5,6 +5,7 @@ const passport = require('passport')
 const {mailSender} = require('./helpers/mailer');
 const {verificationMail, passwordRecovery} = require('./helpers/mail snippets');
 const {genPwd} = require("../config/hashPwd")
+const sid = require('shortid')
 
 const router = express.Router()
 
@@ -69,7 +70,7 @@ router.post('/recovery', async (req, res) => {
     try{
         let user = await User.findOne({email: req.body.email})
         if(user){
-            await mailSender(user.email, user.userid, passwordRecovery)
+            await mailSender(user.email, {id:user.userid, secret: sid.generate()}, passwordRecovery)
             msg = 'A password recovery link has been sent to Your email'
         }
         else{
