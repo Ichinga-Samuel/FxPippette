@@ -1,0 +1,15 @@
+extends layout
+block content
+    h4 = user.fullName
+        img(src=user.imageUrl)
+
+    form(action='/users/deposit' method='POST' class='dep')
+        ul.form
+            li.formel
+            label(for='po') Payment Options
+            select(class='formel' id='po' name='po')
+                option Paypal
+                option Visa
+                option QuickTeller
+            input(type='number' name='amount')
+        button.btnel(type="submit")

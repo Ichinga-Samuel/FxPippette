@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    div.icon
+        p=username
+    h2.
+        you currently have #{referrals}
+    p.
+        grow your investment portfolio by getting more referral spread the news about fxpippet and be rewarded
+
+    if referrals.length > 0
+        ul
+            each v, i in referrals
+                li=v
+

@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    include partials/_header
+    main
+        div.login-container
+            h5 Password Recovery
+            div.row
+                form(action=`/auth/reset?id=${ref}`, method='POST', class="s12")
+                    div.row
+
+                        div.input-field
+                            label(for='pwd') Password
+                            input(type="password" name="password" id='pwd' class="validate" pattern='.*(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}' placeholder='at least 8 characters long' required)
+                            i(class='material-icons' class='eye') visibility
+                            span(class="helper-text" data-error="wrong" data-success="Correct") Password Should contain at least one lowercase, uppercase and numeric character
+
+                        div.input-field
+                            label(for='cpwd' class="formel") Confirm Password
+                            input(type="password" class="validate" name="cpassword" id='cpwd' required)
+                            i(class='material-icons' class='eye') visibility
+                            span(class="helper-text" data-error="wrong" data-success="right")
+
+                        div.row
+                            div.input-field.col.s6
+                                input(type='submit' id='register' value='submit', class="btn")
+                            div.input-field.col.s6
+                                a(href='/' id='login' class="btn") cancel
+
+

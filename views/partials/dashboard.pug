@@ -1,0 +1,23 @@
+
+ ul.sidenav
+     li=user.fullName
+     li
+        div.user-view
+            div.background
+                img(src='images/flyer.jpg' class='responsive-image')
+            img(src=user.imageUrl class='circle')
+            a(href='#user')=user.name
+            a(href='#user')=user.email
+     li
+        div.divider
+     li initial Deposit: #{user.initialDeposit}
+     li Referral Bonus:  #{bonus}
+     li Current Total: #{currentAmount}
+     li #[a(class='dropdown-trigger btn' data-target='refs') Referrals]
+        ul.dropdown-content#refs
+            each value in refs
+                li=value
+            else
+                p You Have No Referrals Yet
+     li
+        a(href='/users/deposit') deposit

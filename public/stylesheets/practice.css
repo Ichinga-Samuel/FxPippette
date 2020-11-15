@@ -1,0 +1,20 @@
+html{
+  box-sizing: border-box;
+}
+*, *:after, *:before{
+  box-sizing: inherit;
+}
+body{
+  display: grid;
+  grid-template-rows: 90px 10px 10px 10px 100px 100px 100px 100px 100px 100px 100px 100px;
+  color: black;
+  background-color: peachpuff;
+  background-blend-mode: hard-light;
+  background-position: top;
+  background-repeat: repeat;
+  background-size: 5px;
+  background-attachment: scroll;
+  margin: auto 5em;
+  font-family: Effra, "Trebuchet MS", Arial, "Arial Black", sans-serif;
+  font-size: 100%;
+}

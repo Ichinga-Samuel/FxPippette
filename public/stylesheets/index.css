@@ -1,0 +1,93 @@
+html{
+  box-sizing: border-box;
+}
+*, *:after, *:before{
+  box-sizing: inherit;
+}
+body{
+  display: grid;
+  grid-template-rows: auto[header] auto[main] auto[Footer];
+  grid-template-columns: auto[body];
+  color: midnightblue;
+  background-color: peachpuff;
+  background-blend-mode: hard-light;
+  background-position: top;
+  background-repeat: repeat;
+  background-size: 5px;
+  background-attachment: scroll;
+  margin: auto 1em;
+  font-family: Effra, "Trebuchet MS", Arial, "Arial Black", sans-serif;
+  font-size: 100%;
+}
+footer{
+  margin: auto;
+}
+main{
+  display: grid;
+  grid-gap: 5px 2px;
+  grid-template-rows: auto;
+  grid-template-columns: [authors] 1fr [contents] 3fr [book] 1fr;
+  grid-template-areas: "author content book";
+  justify-content: space-evenly;
+  align-content:space-evenly ;
+}
+
+#bod{
+  grid-area: book;
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.nav{
+  text-transform: uppercase;
+  flex: 0 1 auto;
+  border: solid blue;
+  margin: auto;
+  border-radius: 3em;
+}
+
+#nav{
+  display: flex;
+  flex: 0 1 auto;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  /**align-items: center; **/
+  list-style-type: none;
+  font:  bolder xx-large/1  Geneva, "Trebuchet MS", Arial, "Arial Black", sans-serif;
+  border: darkslategrey thin solid;
+  border-radius: 5px;
+  background-color: darkslategrey;
+  height: 90px;
+
+}
+
+li.nav:last-child{
+  justify-self: flex-end
+}
+
+#sch{
+  float: right;
+  margin: 5px;
+}
+
+h1, h2, h3{
+  font-family: "Segoe UI Black", "Times New Roman", Georgia, serif;
+  font-stretch: extra-expanded;
+  font-weight: 800;
+}
+
+a.nav:link{
+  color: inherit;
+  text-decoration: none;
+  border: none;
+}
+a.nav:visited{
+  text-decoration: none;
+  color: inherit;
+}
+
+
+  /** background-image of the book **/
+
+
+

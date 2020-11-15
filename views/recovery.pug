@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    include partials/_header
+    main
+
+        div.login-container
+            h4 Password Recovery
+                p Enter the email You used in registering with us
+                if msg
+                    p=msg
+            div.row
+                form(action="/auth/recovery", method='POST', class="col, s12, l6")
+                    div.row
+                        div.input-field
+                            input(type='email' id="em" name="email")
+                            label(for='em') Email
+                        div.col.s6
+                            input(type='submit' id='login' value='Submit', class="btn")
+                        a(href='/' class='btn') Back
+
+

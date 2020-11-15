@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  include partials/_header
+  main
+      div.login-container
+          h5 Create an Account with Us
+          h6 Already have an account with us? #[a(href='/auth/login') Sign in]
+          -let act = '/auth/register'
+          -if(ref){act = `/auth/register?ref=${ref}`}
+          div.row
+              form(action=`${act}`, method='POST', class="s12")
+                  div.row
+                      div.input-field
+                          i(class="material-icons prefix") account_circle
+                          input(type="text" name="firstName" id='fn' required)
+                          label(for='fn') First Name
+
+                      div.input-field
+                          i(class="material-icons prefix") account_circle
+                          label(for='ln' ) Last Name
+                          input(type="text" name="lastName" id='ln' required)
+
+                      div.input-field
+                          i(class="material-icons prefix") phone
+                          label(for='tel' ) Telephone
+                          input(type="tel" name="telephone" id='tel' required)
+
+                      div.input-field
+                          i(class="material-icons prefix") email
+                          input(type='email' id="em" name="email" class='validate' required)
+                          label(for='em') Email
+                          span(class="helper-text" data-error="wrong" data-success="right")
+
+                      div.input-field
+                          label(for='pwd') Password
+                          input(type="password" name="password" id='pwd' class="validate" pattern='.*(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}' placeholder='at least 8 characters long' required)
+                          i(class='material-icons' class='eye') visibility
+                          span(class="helper-text" data-error="wrong" data-success="Correct") Password Should contain at least one lowercase, uppercase and numeric character
+
+                      div.input-field
+                          label(for='cpwd' class="formel") Confirm Password
+                          input(type="password" class="validate" name="cpassword" id='cpwd' required)
+                          i(class='material-icons' class='eye') visibility
+                          span(class="helper-text" data-error="wrong" data-success="right")
+
+
+                      div.row
+                          div.input-field.col.s6
+                              input(type='submit' id='register' value='submit', class="btn")
+                          div.input-field.col.s6
+                              a(href='/' id='login' class="btn") cancel
+
+
