@@ -1,6 +1,7 @@
 const express = require('express')
 const User = require('../models/User')
 const passport = require('passport')
+const ev = require('email-verifier')
 
 const {mailSender} = require('./helpers/mailer');
 const {verificationMail, passwordRecovery} = require('./helpers/mail snippets');
@@ -19,25 +20,24 @@ router.get('/register', (req, res) => {
     res.render('register', {ref: req.query.ref})
 })
 
-router.post('/register', async(req, res)=>{
+router.post('/register', async(req, res, next)=>{
     try{
         let email = req.body.email;
+
         let r = await User.findOne({email});
-        if(r){throw new Error('This Email Address is already in use')}
+        if(r){ throw Error('This Email Address is already in use')}
         req.body.password = genPwd(req.body.password)
-        let user;
+        let userid = sid.generate()
+        req.body.userid = userid
         if(req.query.ref){
             let referer = await User.findOne({userid:req.query.ref})
             req.body.referer = referer.userid
-            user = await User.create(req.body)
-            await referer.update({$push:{referrals: user.userid}})
+            await referer.update({$push:{referrals: userid}})
         }
-        else{
-            user = await User.create(req.body)
-        }
+        await User.create(req.body)
+        await mailSender(email, {id:userid, secret:''}, verificationMail);
+        res.render(`verify`)
 
-        await mailSender(email, user.userid, verificationMail);
-        res.redirect('/auth/login');
     }
     catch(err){
         console.log(err)
@@ -52,14 +52,11 @@ router.get('/logout', (req, res) => {
 } )
 
 
-router.get('/verify', async (req, res) =>{
-    await User.findOneAndUpdate({userid: req.query.id}, {verified: true}, {upsert:true})
-    res.redirect('/')
+router.get('/verify/:id', async (req, res) =>{
+    await User.findOneAndUpdate({userid: req.params.id}, {verified: true})
+    res.redirect('/auth/login')
 })
 
-router.post('/verify/:id', async (req, res) =>{
-    res.redirect('/')
-})
 
 router.get('/recovery', (req, res) => {
     res.render('recovery')

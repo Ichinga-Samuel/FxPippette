@@ -7,7 +7,7 @@ module.exports = {
             native_parser: true,
             useUnifiedTopology: true,
             useNewUrlParser: true,
-            useFindAndModify: true,
+            useFindAndModify: false,
         })
     }
     catch (e) {

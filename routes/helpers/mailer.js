@@ -36,14 +36,6 @@ const transport = {
 async function mailSender(email, input, mail){
     let transporter = nodemailer.createTransport(transport);
     mail.msg = input;
-    transporter.verify(function(err, success){
-        if(err){
-            console.log(err, 'not valid')
-        }
-        else {
-            console.log('ok', 'valid')
-        }
-    });
     try{
         let info = await transporter.sendMail({
             from: process.env.EMAIL_ADDRESS,

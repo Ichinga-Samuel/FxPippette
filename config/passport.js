@@ -9,7 +9,7 @@ module.exports = {
         passport.use(new LS({usernameField: 'email'}, async (username, password, done) => {
                 try {
                     const user = await Users.findOne({email: username})
-                    if (!user || !(isValid(password, user.password.salt, user.password.hash))) {
+                    if (!(user && user.verified && isValid(password, user.password.salt, user.password.hash))) {
                         return done(null, false)
                     }
                     // if (!ok) {

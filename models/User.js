@@ -7,7 +7,8 @@ const uid = require('shortid')
 UserSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password:{
         hash: {
@@ -25,7 +26,7 @@ UserSchema = new mongoose.Schema({
     verified: Boolean,
     userid: {
         type: String,
-        default: uid.generate
+        //default: uid.generate
     },
 
     initialDeposit:{
