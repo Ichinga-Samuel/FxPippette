@@ -15,10 +15,8 @@ block content
                     if user
                         li
                             a(href='#' data-target='db' class='sidenav-trigger show-on-large pulse') #[i(class='material-icons') menu]Dashboard
-                            ul(class='sidenav red accent-2 black-text' id='db')
+                            ul(class='sidenav sidenav-fixed red accent-2 black-text' id='db')
                                 li=user.fullName
-                                unless user.verified
-                                    li This account is not verified goto to your email and follow the link provided to verify the account
                                 li
                                     div.user-view.black-text
                                         div.background
