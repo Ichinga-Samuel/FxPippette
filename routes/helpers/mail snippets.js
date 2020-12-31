@@ -6,7 +6,7 @@ const verificationMail = {
         this._msg = `<body><header style="background-color: red color: white"><h1>FxPippette Investment</h1></header> 
         <h2>Email Verification</h2>
         <h3> Welcome to Fxpippette</h3>
-        <p>Follow this <a> href = '${process.env.URL}/auth/verify/${link.id}' link</a> to verify your email and complete your sign up process</p>
+        <p>Follow this link "${process.env.URL}/auth/verify/${link.id}" to verify your email and complete your sign up process</p>
         <footer style="align-content: center">&copy;FxPippette Investment </footer>
         </body>`
     },
@@ -19,7 +19,7 @@ const passwordRecovery = {
         this._msg = `<body><header style="background-color: red color: white"><h1>FxPippette Investment</h1></header> 
         <h2>Password Recovery</h2>
         <h3>You Initiated Password Recovery</h3>
-        <p>Follow this <a> href = '${process.env.URL}/auth/reset?s=${link.secret}&id=${link.id}' link</a> to reset your password</p>
+        <p>Follow this link ${process.env.URL}/auth/reset?s=${link.secret}&id=${link.id} to reset your password</p>
         <footer style="align-content: center">&copy;FxPippette Investment </footer>
         </body>`
     },

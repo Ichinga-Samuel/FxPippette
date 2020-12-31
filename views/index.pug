@@ -4,7 +4,7 @@ block content
     header
         nav.purple.accent-3
             div
-                h5.brand-logo.logo FxPippette
+                h6.brand-logo.logo.center FxPippette
                 ul.right
                     unless user
                         li
@@ -14,7 +14,83 @@ block content
                     if user
 
                         li
-                            a(href='#' data-target='db' class='sidenav-trigger show-on-large pulse') #[i(class='material-icons') menu]Dashboard
+                            a(href='#' data-target='db' class='sidenav-trigger show-on-large pulse') #[i(class='material-icons') menu]
+                            div
+                                ul(class='sidenav red accent-2 black-text' id='db')
+                                    li=user.fullName
+                                    li
+                                        div.user-view.black-text
+                                            div.background
+                                                img(src='images/flyer-200.jpg' class='responsive-image z-depth-0')
+                                            img(src=user.imageUrl class='circle')
+                                            a(href='#user' class='black-text')=user.fullName
+                                            a(href='#user' class='black-text')=user.email
+                                    li
+                                        ul.collapsible.collapsible-accordion.black-text
+                                            li.active
+                                                a(href='#', class='collapsible-header') Account Details
+                                                    i.material-icons arrow_drop_down
+                                                div.collapsible-body
+                                                    ul.collection
+                                                        li.collection-item Initial Deposit: #{user.initialDeposit}
+                                                        li.collection-item Referral Bonus:  #{bonus}
+                                                        li.collection-item Current Total: #{currentAmount}
+                                                    progress(max='25' value=`${user.getDaysLeft()}`)
+                                    li
+                                        div.divider
+
+                                    li
+                                        ul(class='collapsible collapsible-accordion')
+                                            li
+                                                a(href='#' class='collapsible-header') Referrals
+                                                    i(class="material-icons ") arrow_drop_down
+                                                div.collapsible-body
+                                                    ul.collection
+                                                        each value in refs
+                                                            li.collection-item=value
+                                                        else
+                                                            p You Have No Referrals Yet
+                                    li
+                                        ul.collapsible.collapsible-accordion
+                                            li
+                                                p.collapsible-header Deposit
+                                                    i(class="material-icons ") arrow_drop_down
+                                                div.collapsible-body
+                                                    form
+                                                        input(type='number', class='input-field', min='5000', id='amt', placeholder='Enter amount you wish to deposit')
+                                                    script.
+                                                        let form = document.forms[0]
+                                                        form.addEventListener('submit', e => {
+                                                            e.preventDefault()
+                                                            window.amount = e.target.elements[0].value
+                                                            e.target.reset()
+                                                            let opt = document.getElementById('opt')
+                                                            opt.classList.remove('hide')
+
+                                                        })
+
+                                                    ul.collection.hide#opt
+                                                        li.collection-item
+                                                            script(src="https://www.paypalobjects.com/api/checkout.js")
+                                                            p#paypal-button
+                                                            script.
+                                                                paypal.Button.render({
+                                                                        env: 'sandbox',
+                                                                        payment: function (data, actions) {
+                                                                            return actions.request.post('/users/deposit/paypal/', {amount: window.amount}).then(res => res.id
+                                                                        )
+                                                                        },
+
+                                                                        onAuthorize: function (data, actions) {
+                                                                            return actions.request.post('/users/deposit/paypal/exe/', {
+                                                                                paymentID: data.paymentID,
+                                                                                payerID: data.payerID,
+                                                                                amount: window.amount
+                                                                            }).then(res => 'hey'
+                                                                        )
+                                                                        }
+                                                                    }, '#paypal-button'
+                                                                )
 
                         li
                             a(href='/auth/logout') Logout
@@ -29,82 +105,8 @@ block content
                         Our goal is to provide a safe investment platform where you can invest your money and be guaranteed of returns. We have at your service seasoned and experience
                         forex experts who are committed to insuring you get the best reward for your investment. We are willing and capable of carrying all risks associated with forex trading
                         and assure you profit no matter what.
-                div
-                    ul(class='sidenav red accent-2 black-text' id='db')
-                        li=user.fullName
-                        li
-                            div.user-view.black-text
-                                div.background
-                                    img(src='images/flyer-200.jpg' class='responsive-image z-depth-0')
-                                img(src=user.imageUrl class='circle')
-                                a(href='#user' class='black-text')=user.fullName
-                                a(href='#user' class='black-text')=user.email
-                        li
-                            ul.collapsible.collapsible-accordion.black-text
-                                li.active
-                                    a(href='#', class='collapsible-header') Account Details
-                                        i.material-icons arrow_drop_down
-                                    div.collapsible-body
-                                        ul.collection
-                                            li.collection-item Initial Deposit: #{user.initialDeposit}
-                                            li.collection-item Referral Bonus:  #{bonus}
-                                            li.collection-item Current Total: #{currentAmount}
-                                        progress(max='25' value=`${user.getDaysLeft()}`)
-                        li
-                            div.divider
 
-                        li
-                            ul(class='collapsible collapsible-accordion')
-                                li
-                                    a(href='#' class='collapsible-header') Referrals
-                                        i(class="material-icons ") arrow_drop_down
-                                    div.collapsible-body
-                                        ul.collection
-                                            each value in refs
-                                                li.collection-item=value
-                                            else
-                                                p You Have No Referrals Yet
-                        li
-                            ul.collapsible.collapsible-accordion
-                                li
-                                    p.collapsible-header Deposit
-                                        i(class="material-icons ") arrow_drop_down
-                                    div.collapsible-body
-                                        form
-                                            input(type='number', class='input-field', min='5000', id='amt', placeholder='Enter amount you wish to deposit')
-                                        script.
-                                            let form = document.forms[0]
-                                            form.addEventListener('submit', e => {
-                                                e.preventDefault()
-                                                window.amount = e.target.elements[0].value
-                                                e.target.reset()
-                                                let opt = document.getElementById('opt')
-                                                opt.classList.remove('hide')
 
-                                            })
-
-                                        ul.collection.hide#opt
-                                            li.collection-item
-                                                script(src="https://www.paypalobjects.com/api/checkout.js")
-                                                p#paypal-button
-                                                script.
-                                                    paypal.Button.render({
-                                                            env: 'sandbox',
-                                                            payment: function (data, actions) {
-                                                                return actions.request.post('/users/deposit/paypal/', {amount: window.amount}).then(res => res.id
-                                                            )
-                                                            },
-
-                                                            onAuthorize: function (data, actions) {
-                                                                return actions.request.post('/users/deposit/paypal/exe/', {
-                                                                    paymentID: data.paymentID,
-                                                                    payerID: data.payerID,
-                                                                    amount: window.amount
-                                                                }).then(res => 'hey'
-                                                            )
-                                                            }
-                                                        }, '#paypal-button'
-                                                    )
 
 
 

@@ -18,6 +18,8 @@ body {
 
 main {
     flex: 1 0 auto;
+    background-image: url("../images/Flyer.jpg");
+    opacity: 0.9;
     /*height: 100vh;*/
 }
 
@@ -29,12 +31,12 @@ main {
     margin: 0 !important;
     padding: 0 !important;
 }
-/*a {*/
-/*  color: #00B7FF;*/
-/*}*/
+a {
+  color: purple;
+}
 
 .login-container{
-  width: 60%;
+  width: 40%;
   text-align: center;
   margin: auto;
   /*position: absolute;*/
@@ -43,11 +45,15 @@ main {
   /*  transform: translate(-50%, -50%);*/
 
 }
+.login-container label{
+    color: black;
+}
 p{
   margin: 10px 0 !important;
 }
 .logo{
   font-family: cursive;
+  font-size: x-large;
 }
 
 img{
