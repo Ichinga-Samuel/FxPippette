@@ -1,6 +1,6 @@
 {
   "name": "fxpippette",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "main": "app.js",
   "directories": {
@@ -12,6 +12,9 @@
     "start": "cross-env NODE_ENV=production node app",
     "dev": "cross-env NODE_ENV=development nodemon app",
     "test": "mocha"
+  },
+  "engines": {
+    "node": "12.x"
   },
   "dependencies": {
     "base64url": "^3.0.1",
